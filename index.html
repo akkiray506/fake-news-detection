@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake News Detection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Body & Background */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+            padding: 3rem 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            animation: fadeInUp 0.7s ease forwards;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Headings */
+        h2 {
+            text-align: center;
+            color: #6a1b9a;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+
+        /* Labels */
+        label {
+            font-weight: 600;
+            color: #444;
+        }
+
+        /* Textareas */
+        textarea {
+            width: 100%;
+            padding: 1rem 0.2rem;
+            border: 1px 1px solid #ccc;
+            border-radius: 15px;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(145deg, #f9f9f9, #f0f4ff);
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #6a1b9a;
+            box-shadow: 0 0 15px rgba(106, 27, 154, 0.3);
+            outline: none;
+        }
+
+        /* Buttons */
+        button {
+            background: linear-gradient(90deg, #ff6f91, #ff9671);
+            color: white;
+            border: none;
+            padding: 1rem 1rem;
+            font-size: 1.1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 105, 145, 0.4);
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #ff3b6f, #ff704d);
+            box-shadow: 0 8px 25px rgba(255, 105, 145, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Result Box */
+        .result {
+            margin-top: 2rem;
+            padding: 1.2rem 1rem;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            animation: popIn 0.5s ease forwards;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .fake {
+            background-color: #ffe6e6;
+            color: #d32f2f;
+            border: 1px solid #ff9999;
+        }
+
+        .real {
+            background-color: #e6ffe6;
+            color: #2e7d32;
+            border: 1px solid #99ff99;
+        }
+
+        /* Placeholder Styling */
+        ::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📰 Fake News Detector</h2>
+        <form method="POST">
+            <label for="news_title">Enter News Title:</label>
+            <textarea name="news_title" rows="2" placeholder="Enter the news title here..." required></textarea>
+
+            <label for="news_text">Enter News Text:</label>
+            <textarea name="news_text" rows="6" placeholder="Paste or type your news text here..." required></textarea>
+
+            <button type="submit">Detect</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result {% if prediction == 'FAKE' %}fake{% else %}real{% endif %}">
+            Prediction: {{ prediction }}<br>
+            Confidence: {{ confidence }}%
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
