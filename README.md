@@ -22,7 +22,7 @@ https://www.kaggle.com/datasets/emineyetm/fake-news-detection-datasets
 
 ## ⚙️ Installation
 ```bash
-git clone https://github.com/your-username/fake-news-detection.git
+git clone git@github.com:akkiray506/fake-news-detection.git
 cd fake-news-detection
 pip install -r requirements.txt
 ```
